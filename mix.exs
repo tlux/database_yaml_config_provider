@@ -23,7 +23,7 @@ defmodule DatabaseYamlConfigProvider.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
 
       # Docs
-      name: "Database YAML Config Provider",
+      name: "DB YAML Config Provider",
       source_url:
         "https://gitlab.i22.de/pakete/elixir/database_yaml_config_provider/blob/master/%{path}#L%{line}",
       homepage_url:
