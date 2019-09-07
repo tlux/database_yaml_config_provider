@@ -20,6 +20,7 @@ defmodule DatabaseYamlConfigProvider.MixProject do
       test_coverage: [tool: ExCoveralls],
       dialyzer: [plt_add_apps: [:mix]],
       package: package(),
+      elixirc_paths: elixirc_paths(Mix.env()),
 
       # Docs
       name: "App Monitoring",
@@ -46,15 +47,19 @@ defmodule DatabaseYamlConfigProvider.MixProject do
     [
       {:credo, "~> 1.1", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.6", only: [:dev, :test], runtime: false},
-      {:ecto, "~> 3.0"},
+      {:ecto_sql, "~> 3.0"},
       {:ex_doc, "~> 0.21", only: :dev, runtime: false},
-      {:excoveralls, "~> 0.10", only: :test}
+      {:excoveralls, "~> 0.10", only: :test},
+      {:yaml_elixir, "~> 2.4"}
     ]
   end
 
   defp description do
     "A config provider to load a database.yml file as Ecto configuration."
   end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   defp package do
     [
