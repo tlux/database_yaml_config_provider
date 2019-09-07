@@ -6,6 +6,8 @@ defmodule DatabaseYamlConfigProvider do
   @behaviour Config.Provider
 
   alias DatabaseYamlConfigProvider.AdapterMismatchError
+  alias DatabaseYamlConfigProvider.InvalidFileFormatError
+  alias DatabaseYamlConfigProvider.UndefinedEnvironmentError
 
   @adapters %{
     "mysql" => [Ecto.Adapters.MySQL, Ecto.Adapters.MyXQL],
@@ -27,22 +29,28 @@ defmodule DatabaseYamlConfigProvider do
 
     env = resolve_env(opts.env)
     path = resolve_path(opts.path)
-    data = path |> read_config() |> Map.fetch!(env)
-    validate_adapter!(opts.repo, data["adapter"])
+    config_data = fetch_config!(path, env)
+    validate_adapter!(opts.repo, config_data["adapter"])
 
     Config.Reader.merge(config, [
       {opts.otp_app,
        [
          {opts.repo,
           [
-            database: data["database"],
-            hostname: data["host"],
-            password: data["password"],
-            port: data["port"],
-            username: data["username"]
+            database: config_data["database"],
+            hostname: config_data["host"],
+            password: config_data["password"],
+            port: config_data["port"],
+            username: config_data["username"]
           ]}
        ]}
     ])
+  end
+
+  defp fetch_config!(path, env) do
+    path
+    |> read_config()
+    |> validate_config!(env)
   end
 
   defp read_config(path) do
@@ -50,6 +58,17 @@ defmodule DatabaseYamlConfigProvider do
     |> resolve_path()
     |> Path.expand()
     |> YamlElixir.read_from_file!()
+  end
+
+  defp validate_config!(config_data, env) when is_map(config_data) do
+    case Map.fetch(config_data, env) do
+      {:ok, env_config_data} -> env_config_data
+      :error -> raise UndefinedEnvironmentError, env: env
+    end
+  end
+
+  defp validate_config!(config_data, _env) do
+    raise InvalidFileFormatError, data: config_data
   end
 
   defp validate_adapter!(repo, configured_name) do

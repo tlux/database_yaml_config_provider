@@ -1,4 +1,9 @@
 defmodule DatabaseYamlConfigProvider.AdapterMismatchError do
+  @moduledoc """
+  An error that raises when the adapter in the configuration file mismatches the
+  adapter specified by the repo.
+  """
+
   defexception [:adapter, :configured_name, :repo]
 
   @impl true
