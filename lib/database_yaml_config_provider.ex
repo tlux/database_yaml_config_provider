@@ -21,7 +21,7 @@ defmodule DatabaseYamlConfigProvider do
       releases: [
         my_app: [
           config_providers: [
-            {DatabaseYamlConfigProvider, path: "/production/shared/config"}
+            {DatabaseYamlConfigProvider, path: "/production/shared/config/database.yml"}
           ],
           ...
         ]
@@ -50,7 +50,7 @@ defmodule DatabaseYamlConfigProvider do
 
       {DatabaseYamlConfigProvider, path: {:system, "RELEASE_CONFIG_PATH"}}
 
-  When the filename is different you can customize it, too:
+  When the filename deviates from database.yml you can customize it, too:
 
       {DatabaseYamlConfigProvider,
        path: {:system, "RELEASE_CONFIG_PATH", "my_custom_database.yml"}}

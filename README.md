@@ -34,7 +34,7 @@ the releases section of your mix.exs file.
 releases: [
   my_app: [
     config_providers: [
-      {DatabaseYamlConfigProvider, path: "/production/shared/config"}
+      {DatabaseYamlConfigProvider, path: "/production/shared/config/database.yml"}
     ],
     ...
   ]
@@ -70,7 +70,7 @@ var containing the path to a folder that contains the database.yml file:
 {DatabaseYamlConfigProvider, path: {:system, "RELEASE_CONFIG_PATH"}}
 ```
 
-When the filename is different you can customize it, too:
+When the filename deviates from database.yml you can customize it, too:
 
 ```elixir
 {DatabaseYamlConfigProvider,
