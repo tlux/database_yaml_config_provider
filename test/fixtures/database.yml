@@ -1,0 +1,19 @@
+production:
+  adapter: postgresql
+  database: testdb
+  encoding: unicode
+  username: testuser
+  password: testpw
+  host: pgsqlhost
+  port: 5432
+  min_messages: WARNING
+
+staging:
+  adapter: mysql
+  database: testdb
+  encoding: unicode
+  username: testuser
+  password: testpw
+  host: mysqlhost
+  port: 3306
+  min_messages: WARNING
