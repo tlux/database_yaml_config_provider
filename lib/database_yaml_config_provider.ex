@@ -1,6 +1,59 @@
 defmodule DatabaseYamlConfigProvider do
   @moduledoc """
-  Documentation for DatabaseYamlConfigProvider.
+  A config provider that can load a Rails style database.yml file that has the
+  following structure:
+
+  ```yaml
+  production:
+    adapter: postgresql
+    database: testdb
+    username: testuser
+    password: myPa$sw0rd
+    host: pgsqlhost
+    port: 5432
+  ```
+
+  ## Usage
+
+  You need to register this `DatabaseYamlConfigProvider` as config provider in
+  the releases section of your mix.exs file.
+
+      releases: [
+        my_app: [
+          config_providers: [
+            {DatabaseYamlConfigProvider, path: "/production/shared/config"}
+          ],
+          ...
+        ]
+      ]
+
+  By default, this config provider expects an `ENV` environment variable that
+  contains the current hosting environment name to be present when booting the
+  application.
+
+  Alternatively, you can set the environment directly when defining the config
+  provider.
+
+      {DatabaseYamlConfigProvider,
+       path: "/production/shared/config",
+       env: "production"}
+
+  Or you can speficy another env var containing the particular hosting
+  environment on application startup:
+
+      {DatabaseYamlConfigProvider,
+       path: "/production/shared/config",
+       env: {:system, "RAILS_ENV"}}
+
+  The same works for the location of the database file. You can specify an env
+  var containing the path to a folder that contains the database.yml file:
+
+      {DatabaseYamlConfigProvider, path: {:system, "RELEASE_CONFIG_PATH"}}
+
+  When the filename is different you can customize it, too:
+
+      {DatabaseYamlConfigProvider,
+       path: {:system, "RELEASE_CONFIG_PATH", "my_custom_database.yml"}}
   """
 
   @behaviour Config.Provider
@@ -13,6 +66,8 @@ defmodule DatabaseYamlConfigProvider do
     "mysql" => [Ecto.Adapters.MySQL, Ecto.Adapters.MyXQL],
     "postgresql" => [Ecto.Adapters.Postgres]
   }
+
+  @default_filename "database.yml"
 
   @impl true
   def init(opts) do
@@ -95,6 +150,10 @@ defmodule DatabaseYamlConfigProvider do
     varname
     |> System.fetch_env!()
     |> Path.join(filename)
+  end
+
+  defp resolve_path({:system, varname}) do
+    resolve_path({:system, varname, @default_filename})
   end
 
   defp resolve_path(term), do: resolve_env(term)

@@ -102,12 +102,12 @@ defmodule DatabaseYamlConfigProviderTest do
     end
 
     test "load with path from env var" do
-      System.put_env("TEST_CONFIG_PATH", "test/fixtures/database.yml")
-      on_exit(fn -> System.delete_env("TEST_CONFIG_PATH") end)
+      System.put_env("TEST_CONFIG_DIR", "test/fixtures")
+      on_exit(fn -> System.delete_env("TEST_CONFIG_DIR") end)
 
       opts =
         DatabaseYamlConfigProvider.init(
-          path: {:system, "TEST_CONFIG_PATH"},
+          path: {:system, "TEST_CONFIG_DIR"},
           repo: PostgresRepo,
           env: "production"
         )
