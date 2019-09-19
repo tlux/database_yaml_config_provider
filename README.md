@@ -50,6 +50,7 @@ provider.
 
 ```elixir
 {DatabaseYamlConfigProvider,
+ repo: MyApp.Repo,
  path: "/production/shared/config",
  env: "production"}
 ```
@@ -59,6 +60,7 @@ environment on application startup:
 
 ```elixir
 {DatabaseYamlConfigProvider,
+ repo: MyApp.Repo,
  path: "/production/shared/config",
  env: {:system, "RAILS_ENV"}}
 ```
@@ -67,13 +69,16 @@ The same works for the location of the database file. You can specify an env
 var containing the path to a folder that contains the database.yml file:
 
 ```elixir
-{DatabaseYamlConfigProvider, path: {:system, "RELEASE_CONFIG_PATH"}}
+{DatabaseYamlConfigProvider, 
+ repo: MyApp.Repo,
+ path: {:system, "RELEASE_CONFIG_PATH"}}
 ```
 
 When the filename deviates from database.yml you can customize it, too:
 
 ```elixir
 {DatabaseYamlConfigProvider,
+ repo: MyApp.Repo,
  path: {:system, "RELEASE_CONFIG_PATH", "my_custom_database.yml"}}
 ```
 
