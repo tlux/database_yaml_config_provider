@@ -13,6 +13,9 @@ production:
   port: 5432
 ```
 
+This library intends to simplify the migration process from a Rails app to
+Phoenix Framework.
+
 ## Installation
 
 ```elixir
@@ -34,7 +37,9 @@ the releases section of your mix.exs file.
 releases: [
   my_app: [
     config_providers: [
-      {DatabaseYamlConfigProvider, path: "/production/shared/config/database.yml"}
+      {DatabaseYamlConfigProvider,
+       repo: MyApp.Repo,
+       path: "/production/shared/config/database.yml"}
     ],
     ...
   ]
