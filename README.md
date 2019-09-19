@@ -1,7 +1,7 @@
 # Database YAML Config Provider
 
-An Elixir 1.9+ config provider tocan load a Rails style database.yml file with
-the following structure when booting up the application. 
+An Elixir 1.9+ config provider to load a Rails style database.yml file with the 
+following structure when booting up the application. 
 
 ```yaml
 production:
