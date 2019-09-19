@@ -1,7 +1,7 @@
 # Database YAML Config Provider
 
-A config provider that can load a Rails style database.yml file that has the
-following structure:
+An Elixir 1.9+ config provider tocan load a Rails style database.yml file with
+the following structure when booting up the application. 
 
 ```yaml
 production:
@@ -13,8 +13,12 @@ production:
   port: 5432
 ```
 
-This library intends to simplify the migration process from a Rails app to
-Phoenix Framework.
+The primary intention of this library is to simplify the migration process from 
+a Rails app to Phoenix Framework.
+
+## Prerequisites
+
+* Elixir >= 1.9
 
 ## Installation
 
@@ -23,7 +27,9 @@ def deps do
   [
     {:database_yaml_config_provider,
      git: "git@gitlab.i22.de:pakete/elixir/database_yaml_config_provider.git",
-     tag: "v0.1.0"}
+     tag: "v0.1.0",
+     only: :prod}
+    }
   ]
 end
 ```
