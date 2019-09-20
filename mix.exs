@@ -13,6 +13,7 @@ defmodule DatabaseYamlConfigProvider.MixProject do
       deps: deps(),
       preferred_cli_env: [
         coveralls: :test,
+        "coveralls.travis": :test,
         "coveralls.detail": :test,
         "coveralls.post": :test,
         "coveralls.html": :test
