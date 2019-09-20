@@ -1,5 +1,9 @@
 # Database YAML Config Provider
 
+[![Build Status](https://travis-ci.org/tlux/database_yaml_config_provider.svg?branch=master)](https://travis-ci.org/tlux/database_yaml_config_provider)
+[![Coverage Status](https://coveralls.io/repos/github/tlux/database_yaml_config_provider/badge.svg?branch=master)](https://coveralls.io/github/tlux/database_yaml_config_provider?branch=master)
+[![Hex.pm](https://img.shields.io/hexpm/v/database_yaml_config_provider.svg)](https://hex.pm/packages/database_yaml_config_provider)
+
 An Elixir 1.9+ config provider to load a Rails style database.yml file with the
 following structure when booting up the application.
 
