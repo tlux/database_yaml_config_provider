@@ -25,9 +25,8 @@ defmodule DatabaseYamlConfigProvider.MixProject do
       # Docs
       name: "DB YAML Config Provider",
       source_url:
-        "https://gitlab.i22.de/pakete/elixir/database_yaml_config_provider/blob/master/%{path}#L%{line}",
-      homepage_url:
-        "https://gitlab.i22.de/pakete/elixir/database_yaml_config_provider",
+        "https://github.com/tlux/database_yaml_config_provider/blob/master/%{path}#L%{line}",
+      homepage_url: "https://github.com/tlux/database_yaml_config_provider",
       docs: [
         main: "readme",
         extras: ["README.md"]
@@ -38,7 +37,7 @@ defmodule DatabaseYamlConfigProvider.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: []
     ]
   end
 
@@ -65,8 +64,7 @@ defmodule DatabaseYamlConfigProvider.MixProject do
     [
       licenses: ["MIT"],
       links: %{
-        "GitLab" =>
-          "https://gitlab.i22.de/pakete/elixir/database_yaml_config_provider"
+        "GitLab" => "https://github.com/tlux/database_yaml_config_provider"
       }
     ]
   end
